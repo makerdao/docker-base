@@ -1,0 +1,11 @@
+language: generic
+after_success:
+  - |
+    if [ "$TRAVIS_BRANCH" == "master" ]; then
+      echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      docker build \
+        --build-arg ALPINE_VERSION=3.9.2 \
+        -t makerdao/docker-base-alpine:latest \
+        alpine
+      docker push makerdao/docker-base-alpine
+    fi
