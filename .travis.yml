@@ -3,8 +3,7 @@ after_success:
   - |
     if [ "$TRAVIS_BRANCH" == "master" ]; then
       echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-      docker build \
-        -t makerdao/docker-base-alpine:latest \
-        alpine
+      docker build -f ./Dockerfile.alpine \
+        -t makerdao/docker-base-alpine:latest .
       docker push makerdao/docker-base-alpine
     fi
